@@ -4,20 +4,23 @@ class PointMass_1D:
     It stores the position, speed and acceleration of the object with respect to an initial zero
     In order to "move", it gets as input a time step and a force applied during that time step'''
 
-    def __init__(self, Mass, F_init= 0.0, pos_init = 0.0, v_init = 0.0):
+    ## Modify so pos_init and v_init are modified based on F_init???
+    ### Rethink how the F_init is used!!
+
+    def __init__(self, Mass, pos_init = 0.0, v_init = 0.0):
         self.mass = Mass
         self.pos = pos_init
         self.speed = v_init
-        self.set_acceleration(F_init)
+        self.acc = 0.0
         self.t = 0.0
         self.history = {self.t: [self.pos, self.speed, self.acc]}
         return
 
     def advance_time_step(self, time_step, Force):
         self.t = self.t + time_step
+        self.set_acceleration(Force)
         self.set_speed(time_step)
         self.set_position(time_step)
-        self.set_acceleration(Force)
         self.add_to_history()
         return
 
@@ -56,10 +59,10 @@ class PointMass_3D:
 
     ## In Development
 
-    def __init__(self, Mass, F_init= [0.0, 0.0, 0.0], pos_init = [0.0, 0.0, 0.0], v_init = [0.0, 0.0, 0.0]):
-        self.x = Mass_1D(Mass, F_init[0], pos_init[0], v_init[0])
-        self.y = Mass_1D(Mass, F_init[1], pos_init[1], v_init[1])
-        self.z = Mass_1D(Mass, F_init[2], pos_init[2], v_init[2])
+    def __init__(self, Mass, pos_init = [0.0, 0.0, 0.0], v_init = [0.0, 0.0, 0.0]):
+        self.x = Mass_1D(Mass, pos_init[0], v_init[0])
+        self.y = Mass_1D(Mass, pos_init[1], v_init[1])
+        self.z = Mass_1D(Mass, pos_init[2], v_init[2])
         self.t = [0.0]
         return
 

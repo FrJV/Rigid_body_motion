@@ -17,11 +17,11 @@ def plot_n(data, axis_name, title):
     '''This functions plots n-1 lists in differnt Y-axis VS 1 list in the X axis'''
     n_axs = len(data)-1
     fig, axs = plt.subplots(n_axs, sharex = True)
+    fig.suptitle(title)
     for i in range(n_axs):
         axs[i].plot(data[0], data[i+1])
         axs[i].set_ylabel(axis_name[i+1])
     axs[-1].set_xlabel(axis_name[0])
-    axs[0].set_title(title)
     return
 
 def average(X):
